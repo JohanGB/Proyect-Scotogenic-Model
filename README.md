@@ -1,4 +1,4 @@
-# Proyect-Scotogenic-Model
+# Proyect: Scotogenic-Model
 
   ->Study the dark matter phenomenology with SARAH->SPheno and micrOmegas.
   
