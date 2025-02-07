@@ -1,0 +1,819 @@
+(******************************)
+(*** Parameters of the ScSM ***)
+(******************************)
+
+(*-------------------------*)
+(*** Internal Parameters ***)
+(*-------------------------*)
+
+M$IntPrm = {
+
+(*** W-Z masses ***)
+MZ == {
+	TeX              -> Subscript[m, Z],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> MMZ,
+	Description      -> "Z mass"},
+MW == {
+	TeX              -> Subscript[m, W],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> MMW,
+	Description      -> "W mass"},
+
+(*** quark masses to be taken running by calchep ***)
+MC == {
+	TeX              -> Subscript[m, c],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> MMC,
+	Description      -> "c mass"},
+
+MB == {
+	TeX              -> Subscript[m, b],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> MMB,
+	Description      -> "b mass"},
+
+MT == {
+	TeX              -> Subscript[m, t],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> MMT,
+	Description      -> "t mass"},
+
+(*** Electroweak interaction ***)
+ee == {
+	(*TeX              -> e,*)
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> Sqrt[4 Pi aEWM1],
+	InteractionOrder -> {QED, 1},
+	Description      -> "Electron charge - Photon coupling to electrons"},
+CW2 == {
+	TeX              -> Subsuperscript[c, w,2],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> (MW/MZ)^2,
+	Description      -> "Squared cosine of the weak angle"},  
+SW2 == {
+	TeX              -> Subsuperscript[s, w,2],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> 1-CW2,
+	Description      -> "Squared Sin of the weak angle"},    
+CW == {
+	TeX              -> Subscript[c, w],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> Sqrt[CW2],
+	Description      -> "Cosine of the weak angle"},  
+SW == {
+	TeX              -> Subscript[s, w],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> Sqrt[SW2],
+	Description      -> "Sine of the weak angle"},
+
+g1 == {
+	TeX              -> Subscript[g, 1],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> ee/CW,
+	Description      -> "U(1)_Y coupling constant"},
+g2 == {
+	TeX              -> Subscript[g, 2],
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> ee/SW,
+	Description      -> "SU(2) coupling constant"},
+
+v == {
+	ParameterType -> Internal,
+	Value -> 1./(2^0.25 Sqrt[Gf]),
+	InteractionOrder -> {QED, -1},
+	Description -> "Higgs VEV"},
+
+(*** Yukawa couplings ***)
+yu == {
+	TeX              -> Superscript[y, u],
+	ParameterType    -> Internal,
+	ComplexParameter -> True,
+	Indices          -> {Index[Generation]},
+	Definitions      :> {yu[i_] :> Sqrt[2] Mu[i]/v },
+	Description      -> "up-type quark Yukawa couplings"},
+
+yd == {
+	TeX              -> Superscript[y, d],
+	ParameterType    -> Internal,
+	ComplexParameter -> True,
+	Indices          -> {Index[Generation]},
+	Definitions      :> {yd[i_] :> Sqrt[2] Md[i]/v },
+	Description      -> "down-type quark Yukawa couplings"},
+
+yl == {
+	TeX              -> Superscript[y, l],
+	ParameterType    -> Internal,
+	ComplexParameter -> True,
+	Indices          -> {Index[Generation]},
+	Definitions      :> {yl[i_] :> Sqrt[2] Ml[i]/v },
+	Description      -> "down-type lepton Yukawa couplings"},
+
+(*** Strong  interaction ***)
+gs == {
+	TeX              -> Subscript[g, s],
+	ComplexParameter -> False,
+	ParameterType    -> Internal,
+	Value            -> Sqrt[4 Pi aS],
+	InteractionOrder -> {QCD, 1},
+	ParameterName    -> gs,
+	Description      -> "Strong coupling constant"},
+
+(*** CKM  matrix ***)
+CKM == {
+	TeX              -> Superscript[V, CKM],
+	ParameterType    -> Internal,
+	ComplexParameter -> True,
+	Indices          -> {Index[Generation], Index[Generation]},
+	TensorClass      -> CKM,
+	Unitary          -> True,
+	Definitions      :> {CKM[i_,j_] :> 0 /;(i!=j),
+		   	     CKM[i_,j_] :> 1 /;(i==j)},
+	Description      -> "CKM-Matrix"},
+
+
+(*** Scalar sector parameters ***)
+mH == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value		 	 -> emH,
+	Description      -> "Higgs boson mass internal"},
+
+mN1 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> emN1},
+
+mN2 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> emN2},
+mN3 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> emN3},
+
+metaI == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> mphi1+deltaA},
+
+mphi2 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> mphi1+delta1},
+
+mphi1 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> emphi1},
+
+theta == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value	         -> etheta},
+
+ctheta == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value	         -> Cos[theta]},
+
+stheta == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value	         -> Sin[theta]},
+
+muH == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> Sqrt[mH^2/2],
+	Description      -> "Higgs bare mass term"},
+
+lH == {
+	ParameterType    -> Internal,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value            -> mH^2/(2 v^2),
+	Description      -> "Higgs quartic self-coupling"},
+
+lHeta3 == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> ( mphi2^2 ctheta^2 + mphi1^2 stheta^2 - metaI^2 )/v^2,
+	Description      -> "H-eta 3 coupling"},
+
+metasq == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value			 -> mphi2^2 ctheta^2 + mphi1^2 stheta^2 - 1/2 ( lHeta1 + lHeta2 + lHeta3 ) v^2,
+	Description      -> "eta bare mass term"},
+
+msigmasq == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value		     -> mphi2^2 stheta^2 + mphi1^2 ctheta^2 - 1/2 lHsigma v^2 ,
+	Description      -> "sigma bare mass term"},
+
+metachsq == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value		     -> metasq + 1/2 lHeta1 v^2 ,
+	Description      -> "Charged scalar mass"},
+
+metach == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value		 -> Sqrt[Abs[metachsq]],
+	Description      -> "Charged scalar mass"},
+
+cTri == {
+	ParameterType    -> Internal,
+	ComplexParameter -> False,
+	Value            -> ( ( mphi2^2 - mphi1^2) stheta ctheta )/v,
+	Description      -> "eta-H-sigma coupling"},
+
+(* Neutrino oscillation parameters *)
+s12 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[s12sq],
+	Description	    -> "sin(theta_12)"},
+
+s13 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[s13sq],
+	Description	    -> "sin(theta_13)"},
+
+s23 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[s23sq],
+	Description	    -> "sin(theta_23)"},
+
+c12 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[1 - s12sq],
+	Description	    -> "cos(theta_12)"},
+
+c13 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[1 - s13sq],
+	Description	    -> "cos(theta_13)"},
+
+c23 == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sqrt[1 - s23sq],
+	Description	    -> "cos(theta_23)"},
+
+(* PMNS matrix elements *)
+u11R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c13*c12,
+	Description	    -> "PMNS matrix element"},
+
+u11I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> 0.0,
+	Description	    -> "PMNS matrix element"},
+
+u12R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c13*s12*Cos[alpha],
+	Description	    -> "PMNS matrix element"},
+
+u12I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c13*s12*Sin[alpha],
+	Description	    -> "PMNS matrix element"},
+
+u13R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> s13*Cos[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u13I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -s13*Sin[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u21R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -c23*s12 - s23*s13*c12*Cos[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u21I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -s23*s13*c12*Sin[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u22R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c23*c12*Cos[alpha] - s23*s13*s12*Cos[alpha+deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u22I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c23*c12*Sin[alpha] - s23*s13*s12*Sin[alpha+deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u23R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> s23*c13,
+	Description	    -> "PMNS matrix element"},
+
+u23I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> 0.0,
+	Description	    -> "PMNS matrix element"},
+
+u31R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> s23*s12 - c23*s13*c12*Cos[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u31I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -c23*s13*c12*Sin[deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u32R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -s23*c12*Cos[alpha] - c23*s13*s12*Cos[alpha+deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u32I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -s23*c12*Sin[alpha] - c23*s13*s12*Sin[alpha+deltaCP],
+	Description	    -> "PMNS matrix element"},
+
+u33R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> c23*c13,
+	Description	    -> "PMNS matrix element"},
+
+u33I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> 0.0,
+	Description	    -> "PMNS matrix element"},
+
+(* R matrix elements *)
+x1R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Cos[zeta1]*Cosh[zeta2],
+	Description	    -> "R matrix element"},
+
+x1I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> -Sin[zeta1]*Sinh[zeta2],
+	Description	    -> "R matrix element"},
+
+x2R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Sin[zeta1]*Cosh[zeta2],
+	Description	    -> "R matrix element"},
+
+x2I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> Cos[zeta1]*Sinh[zeta2],
+	Description	    -> "R matrix element"},
+
+m1hat == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> mN1*( ctheta^2*mphi2^2/(mphi2^2-mN1^2)*Log[mphi2^2/mN1^2]
+				            + stheta^2*mphi1^2/(mphi1^2-mN1^2)*Log[mphi1^2/mN1^2]
+				            - metaI^2/(metaI^2-mN1^2)*Log[metaI^2/mN1^2]),
+	Description	    -> "number that enters in Yukawas"},
+
+m2hat == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> mN2*( ctheta^2*mphi2^2/(mphi2^2-mN2^2)*Log[mphi2^2/mN2^2]
+				            + stheta^2*mphi1^2/(mphi1^2-mN2^2)*Log[mphi1^2/mN2^2]
+				            - metaI^2/(metaI^2-mN2^2)*Log[metaI^2/mN2^2]),
+	Description	    -> "number that enters in Yukawas"},
+
+m3hat == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value		    -> mN3*( ctheta^2*mphi2^2/(mphi2^2-mN3^2)*Log[mphi2^2/mN3^2]
+				            + stheta^2*mphi1^2/(mphi1^2-mN3^2)*Log[mphi1^2/mN3^2]
+				            - metaI^2/(metaI^2-mN3^2)*Log[metaI^2/mN3^2]),
+	Description	    -> "number that enters in Yukawas"},
+
+invsqrtm1R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5+0.5*Abs[m1hat]/m1hat)/Sqrt[Abs[m1hat]], (* first term is HeavisideTheta[m1hat] *)
+	Description 	-> "Real part of 1/sqrt(m1hat), ie zero if m1hat<0"},
+
+invsqrtm1I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5-0.5*Abs[m1hat]/m1hat)/Sqrt[Abs[m1hat]], (* first term is HeavisideTheta[-m1hat] *)
+	Description 	-> "Im part of 1/sqrt(m1hat), ie zero if m1hat>0"},
+
+invsqrtm2R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5+0.5*Abs[m2hat]/m2hat)/Sqrt[Abs[m2hat]],
+	Description 	-> "Real part of 1/sqrt(m2hat), ie zero if m2hat<0"},
+
+invsqrtm2I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5-0.5*Abs[m2hat]/m2hat)/Sqrt[Abs[m2hat]],
+	Description 	-> "Im part of 1/sqrt(m2hat), ie zero if m2hat>0"},
+invsqrtm3R == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5+0.5*Abs[m3hat]/m3hat)/Sqrt[Abs[m3hat]],
+	Description 	-> "Real part of 1/sqrt(m3hat), ie zero if m3hat<0"},
+
+invsqrtm3I == {
+	ParameterType	-> Internal,
+	ComplexParameter-> False,
+	Value 			-> (0.5-0.5*Abs[m3hat]/m3hat)/Sqrt[Abs[m3hat]],
+	Description 	-> "Im part of 1/sqrt(m3hat), ie zero if m2hat>0"},
+
+mnu2 == {
+	ParameterType   -> Internal,
+	ComplexParameter-> False,
+	Value           -> NOorIO * Sqrt[Dm21sq] + (1-NOorIO) * Sqrt[Abs[Dm3lsq]],
+	Description	-> "Mass of neutrino nu2"},
+
+mnum == {
+	ParameterType   -> Internal,
+	ComplexParameter-> False,
+	Value           -> NOorIO * Sqrt[Abs[Dm3lsq]] + (1-NOorIO) * Sqrt[Abs[Dm3lsq]-Dm21sq],
+	Description	-> "Mass of massive neutrino that is not nu2. (m=3 for NO, m=1 for IO)"},
+
+y1eR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1R*u12R+x1I*u12I) + Sqrt[mnum]*(x2R*u13R+x2I*u13I))
+										  + invsqrtm1I*(Sqrt[mnu2]*(x1I*u12R-x1R*u12I) + Sqrt[mnum]*(x2I*u13R-x2R*u13I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1R*u11R+x1I*u11I) + Sqrt[mnu2]*(x2R*u12R+x2I*u12I))
+										  + invsqrtm1I*(Sqrt[mnum]*(x1I*u11R-x1R*u11I) + Sqrt[mnu2]*(x2I*u12R-x2R*u12I))),
+	Description      -> "y1eR"},
+
+y1eI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1I*u12R-x1R*u12I) + Sqrt[mnum]*(x2I*u13R-x2R*u13I))
+										  - invsqrtm1I*(Sqrt[mnu2]*(x1R*u12R+x1I*u12I) + Sqrt[mnum]*(x2R*u13R+x2I*u13I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1I*u11R-x1R*u11I) + Sqrt[mnu2]*(x2I*u12R-x2R*u12I))
+										  - invsqrtm1I*(Sqrt[mnum]*(x1R*u11R+x1I*u11I) + Sqrt[mnu2]*(x2R*u12R+x2I*u12I))),
+	Description      -> "y1eI"},
+
+y1mR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1R*u22R+x1I*u22I) + Sqrt[mnum]*(x2R*u23R+x2I*u23I))
+										  + invsqrtm1I*(Sqrt[mnu2]*(x1I*u22R-x1R*u22I) + Sqrt[mnum]*(x2I*u23R-x2R*u23I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1R*u21R+x1I*u21I) + Sqrt[mnu2]*(x2R*u22R+x2I*u22I))
+										  + invsqrtm1I*(Sqrt[mnum]*(x1I*u21R-x1R*u21I) + Sqrt[mnu2]*(x2I*u22R-x2R*u22I))),
+	Description      -> "y1mR"},
+
+y1mI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1I*u22R-x1R*u22I) + Sqrt[mnum]*(x2I*u23R-x2R*u23I))
+										  - invsqrtm1I*(Sqrt[mnu2]*(x1R*u22R+x1I*u22I) + Sqrt[mnum]*(x2R*u23R+x2I*u23I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1I*u21R-x1R*u21I) + Sqrt[mnu2]*(x2I*u22R-x2R*u22I))
+										  - invsqrtm1I*(Sqrt[mnum]*(x1R*u21R+x1I*u21I) + Sqrt[mnu2]*(x2R*u22R+x2I*u22I))),
+	Description      -> "y1mI"},
+
+y1tR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1R*u32R+x1I*u32I) + Sqrt[mnum]*(x2R*u33R+x2I*u33I))
+										  + invsqrtm1I*(Sqrt[mnu2]*(x1I*u32R-x1R*u32I) + Sqrt[mnum]*(x2I*u33R-x2R*u33I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1R*u31R+x1I*u31I) + Sqrt[mnu2]*(x2R*u32R+x2I*u32I))
+										  + invsqrtm1I*(Sqrt[mnum]*(x1I*u31R-x1R*u31I) + Sqrt[mnu2]*(x2I*u32R-x2R*u32I))),
+	Description      -> "y1tR"},
+
+y1tI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnu2]*(x1I*u32R-x1R*u32I) + Sqrt[mnum]*(x2I*u33R-x2R*u33I))
+										  - invsqrtm1I*(Sqrt[mnu2]*(x1R*u32R+x1I*u32I) + Sqrt[mnum]*(x2R*u33R+x2I*u33I)))
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm1R*(Sqrt[mnum]*(x1I*u31R-x1R*u31I) + Sqrt[mnu2]*(x2I*u32R-x2R*u32I))
+										  - invsqrtm1I*(Sqrt[mnum]*(x1R*u31R+x1I*u31I) + Sqrt[mnum]*(x2R*u32R+x2I*u32I))),
+	Description      -> "y1tI"},
+
+y2eR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2R*u12R+x2I*u12I) + Sqrt[mnum]*(x1R*u13R+x1I*u13I))
+										  + invsqrtm2I*(-Sqrt[mnu2]*(x2I*u12R-x2R*u12I) + Sqrt[mnum]*(x1I*u13R-x1R*u13I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2R*u11R+x2I*u11I) + Sqrt[mnu2]*(x1R*u12R+x1I*u12I))
+										  + invsqrtm2I*(-Sqrt[mnum]*(x2I*u11R-x2R*u11I) + Sqrt[mnu2]*(x1I*u12R-x1R*u12I)) ),
+	Description      -> "y2eR"},
+
+y2eI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2I*u12R-x2R*u12I) + Sqrt[mnum]*(x1I*u13R-x1R*u13I))
+										  - invsqrtm2I*(-Sqrt[mnu2]*(x2R*u12R+x2I*u12I) + Sqrt[mnum]*(x1R*u13R+x1I*u13I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2I*u11R-x2R*u11I) + Sqrt[mnu2]*(x1I*u12R-x1R*u12I))
+										  - invsqrtm2I*(-Sqrt[mnum]*(x2R*u11R+x2I*u11I) + Sqrt[mnu2]*(x1R*u12R+x1I*u12I)) ),
+	Description      -> "y2eI"},
+
+y2mR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2R*u22R+x2I*u22I) + Sqrt[mnum]*(x1R*u23R+x1I*u23I))
+										  + invsqrtm2I*(-Sqrt[mnu2]*(x2I*u22R-x2R*u22I) + Sqrt[mnum]*(x1I*u23R-x1R*u23I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2R*u21R+x2I*u21I) + Sqrt[mnu2]*(x1R*u22R+x1I*u22I))
+										  + invsqrtm2I*(-Sqrt[mnum]*(x2I*u21R-x2R*u21I) + Sqrt[mnu2]*(x1I*u22R-x1R*u22I)) ),
+	Description      -> "y2mR"},
+
+y2mI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2I*u22R-x2R*u22I) + Sqrt[mnum]*(x1I*u23R-x1R*u23I))
+										  - invsqrtm2I*(-Sqrt[mnu2]*(x2R*u22R+x2I*u22I) + Sqrt[mnum]*(x1R*u23R+x1I*u23I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2I*u21R-x2R*u21I) + Sqrt[mnu2]*(x1I*u22R-x1R*u22I))
+										  - invsqrtm2I*(-Sqrt[mnum]*(x2R*u21R+x2I*u21I) + Sqrt[mnu2]*(x1R*u22R+x1I*u22I)) ),
+	Description      -> "y2mI"},
+
+y2tR == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2R*u32R+x2I*u32I) + Sqrt[mnum]*(x1R*u33R+x1I*u33I))
+										  + invsqrtm2I*(-Sqrt[mnu2]*(x2I*u32R-x2R*u32I) + Sqrt[mnum]*(x1I*u33R-x1R*u33I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2R*u31R+x2I*u31I) + Sqrt[mnu2]*(x1R*u32R+x1I*u32I))
+										  + invsqrtm2I*(-Sqrt[mnum]*(x2I*u31R-x2R*u31I) + Sqrt[mnu2]*(x1I*u32R-x1R*u32I)) ),
+	Description      -> "y2tR"},
+
+y2tI == {
+	ParameterType	 -> Internal,
+	ComplexParameter -> False,
+	Value		     -> NOorIO * sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnu2]*(x2I*u32R-x2R*u32I) + Sqrt[mnum]*(x1I*u33R-x1R*u33I))
+										  - invsqrtm2I*(-Sqrt[mnu2]*(x2R*u32R+x2I*u32I) + Sqrt[mnum]*(x1R*u33R+x1I*u33I)) )
+						+(1-NOorIO)*sign*Sqrt[32]*Pi*(invsqrtm2R*(-Sqrt[mnum]*(x2I*u31R-x2R*u31I) + Sqrt[mnu2]*(x1I*u32R-x1R*u32I))
+										  - invsqrtm2I*(-Sqrt[mnum]*(x2R*u31R+x2I*u31I) + Sqrt[mnu2]*(x1R*u32R+x1I*u32I)) ),
+	Description      -> "y2tI"}
+
+
+
+}
+
+
+
+
+
+(*-------------------------*)
+(*** External Parameters ***)
+(*-------------------------*)
+
+M$ExtPrm = {
+
+(*** Electroweak interaction ***)
+aEWM1== {
+	TeX              -> Subsuperscript[\[Alpha],w,-1],
+	ParameterType    -> External,
+	Value		 -> 1./128.9, 
+	InteractionOrder -> {QED, -2},
+	Description      -> "EW coupling constant at the Z pole"},
+Gf == {
+	TeX              -> Subscript[G,F],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 1.16637*10^(-5),
+	InteractionOrder -> {QED, 2},
+	Description      -> "Fermi constant"},	
+MMZ == {    
+	TeX              -> Subscript[m,Z],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 91.1876,
+	Description      -> "Z pole mass"}, 
+
+MMW == {    
+	TeX              -> Subscript[m,W],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 79.947,
+	Description      -> "W pole mass"}, 
+MMC == {    
+	TeX              -> Subscript[m,c],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 1.2,
+	Description      -> "c mass at mc, MSbar"}, 
+
+MMB == {    
+	TeX              -> Subscript[m,b],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 4.23,
+	Description      -> "b mass at mb, MSbar"}, 
+MMT == {    
+	TeX              -> Subscript[m,t],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 -> 175,
+	Description      -> "t pole mass"}, 
+
+(*** Strong  interaction ***)
+aS == {
+	TeX              -> Subscript[\[Alpha],s],
+	ParameterType    -> External,
+	Value		 -> 0.1172,
+	InteractionOrder -> {QCD, 2},
+	Description      -> "Strong coupling constant at the Z pole."},
+
+QS == {
+	TeX              -> Subscript[Q,s],
+	ParameterType    -> External,
+	Value		 -> 100.,
+	InteractionOrder -> {QCD, 1},
+	Description      -> "QCD scale for running quark masses in CalcHEP"},
+   
+(*** Scalar  sector ***)
+emH == {
+	TeX              -> Subscript[m, H],
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value			 -> 125.09,
+	Description      -> "Higgs boson mass"},
+
+deltaA == {
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value            -> 10.,
+	Description      -> "Difference between mA and mphi1"},
+
+emN1 == {
+	ParameterType	 -> External,
+	ComplexParameter -> False,
+	Value		     -> 0.1,
+	Description      -> "N1 Majorana mass"},
+
+emN2 == {
+	ParameterType	 -> External,
+	ComplexParameter -> False,
+	Value		     -> 0.2,
+	Description      -> "N2 Majorana mass"},
+emN3 == {
+	ParameterType	 -> External,
+	ComplexParameter -> False,
+	Value		     -> 0.3,
+	Description      -> "N3 Majorana mass"},
+
+delta1 == {
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value			 -> 20.0,
+	Description      -> "difference between mphi2 and mphi1"},
+
+emphi1 == {
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value		 	 -> 105.0,
+	Description      -> "phi_1 mass"},
+
+etheta == {
+	ParameterType    -> External,
+	ComplexParameter -> False,
+	Value            -> 0.7854,
+	Description      -> "etaR-sigma mixing [rad.]"},
+
+leta == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value            -> 0.0001,
+	Description      -> "eta quartic self-coupling"},
+
+lsigma == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value			 -> 0.0002,
+	Description      -> "sigma quartic self-coupling"},
+
+lHeta1 == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value			 -> 0.0003,
+	Description      -> "H-eta 1 coupling"},
+
+lHeta2 == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value			 -> 0.0004,
+	Description      -> "H-eta 2 coupling"},
+
+lHsigma == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value		 	 -> 0.0005,
+	Description      -> "H-sigma coupling"},
+
+letasigma == {
+	ParameterType    -> External,
+	InteractionOrder -> {QED,2},
+	ComplexParameter -> False,
+	Value		 	 -> 0.0006,
+	Description      -> "eta-sigma coupling"},
+
+(* PMNS matrix parameters *)
+s12sq == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 0.25,
+	Description	    -> "sin^2 (theta_12)"},
+
+s13sq == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 0.25,
+	Description	    -> "sin^2 (theta_13)"},
+
+s23sq == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 0.25,
+	Description	    -> "sin^2 (theta_23)"},
+
+alpha == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 1.2,
+	Description	    -> "Majorana phase [rad.]"},
+
+deltaCP == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 1.3,
+	Description	    -> "Dirac phase [rad.]"},
+
+zeta1 == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 1,
+	Description	    -> "free parameter in R matrix"},
+
+zeta2 == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 1,
+	Description	    -> "free parameter in R matrix"},
+
+sign == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value		    -> 1,
+	Description	    -> "plus or minus in yukawas"},
+
+Dm21sq == {
+	ParameterType	-> External,
+	ComplexParameter-> False,
+	Value	        -> 7.1*^-23,
+	Description     -> "difference in squared masses of nu2 and nu1"},
+
+}

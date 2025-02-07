@@ -1,0 +1,102 @@
+(*********************************)
+(*** FERMION AND SCALAR FIELDS ***)
+(*********************************)
+
+M$MajoranaFields = {
+
+(*--------------------------*)
+(*** ScSM Majorana fields ***)
+(*--------------------------*)
+
+F[10] == {
+	ClassName		-> N1,
+	SelfConjugate 	-> True,
+	Mass            -> {mN1, Internal},
+	Width           -> {WN1, 150},
+	ParticleName    -> "~N1"},
+
+F[11] == {
+	ClassName		-> N2,
+	SelfConjugate 	-> True,
+	Mass            -> {mN2, Internal},
+	Width           -> {WN2, 130},
+	ParticleName    -> "~N2"},
+	
+F[12] == {
+	ClassName		-> N3,
+	SelfConjugate 	-> True,
+	Mass            -> {mN3, Internal},
+	Width           -> {WN3, 125},
+	ParticleName    -> "~N3"}
+};
+
+M$ScalarFields = {
+
+(*----------------------*)
+(*** SM scalar fields ***)
+(*----------------------*)
+
+(* Physical Higgs: Q = 0 *) 
+S[1] == {
+	ClassName        -> h,
+	SelfConjugate    -> True,
+	Indices          -> {},
+	Mass             -> {mH, Internal},
+	Width            -> {WH, 1.},
+	ParticleName     -> "h",
+	PDG              -> 25,
+	PropagatorLabel  -> "h",
+	PropagatorType   -> ScalarDash,
+	PropagatorArrow  -> None},
+
+(*------------------------*)
+(*** ScSM scalar fields ***)
+(*------------------------*)
+
+(* Charged scalar from new doublet *)
+S[4] == {
+	ClassName        -> etach,
+	SelfConjugate    -> False,
+	QuantumNumbers	 -> {Q -> 1},
+	Mass             -> {metach, Internal},
+	Width            -> {Wetach, 1.},
+	ParticleName     -> "~eta+",
+	AntiParticleName -> "~eta-"},
+
+(* Neutral scalar from new doublet *)
+S[5] == {
+	ClassName        -> etaR,
+	SelfConjugate    -> True,
+	Unphysical		 -> True,
+	Definitions		 -> { etaR -> ctheta phi2 - stheta phi1 }},
+
+(* Neutral pseudoscalar from new doublet *)
+S[6] == {
+	ClassName		 -> etaI,
+	SelfConjugate	 -> True,
+	Mass			 -> {metaI, Internal},
+	Width			 -> {WetaI, 1.},
+	ParticleName     -> "~etaI"},
+
+(* Scalar singlet *)
+S[7] == {
+	ClassName        -> sigma,
+	SelfConjugate    -> True,
+	Unphysical		 -> True,
+	Definitions	     -> { sigma -> stheta phi2 + ctheta phi1 }},
+
+(* Physical CP-even scalars *)
+S[8] == {
+	ClassName        -> phi2,
+	SelfConjugate    -> True,
+	Mass             -> {mphi2, Internal},
+	Width            -> {Wphi2, 0.},
+	ParticleName     -> "~phi2"},
+
+S[9] == {
+	ClassName        -> phi1,
+	SelfConjugate    -> True,
+	Mass             -> {mphi1, Internal},
+	Width            -> {Wphi1, 0.},
+	ParticleName     -> "~phi1"}
+};
